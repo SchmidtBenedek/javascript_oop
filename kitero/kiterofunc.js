@@ -24,7 +24,7 @@ function StudentWithWork(name){
 }
 
 StudentWithWork.prototype.doWork = function(){
-
+    this.workDone++
 }
 
 
