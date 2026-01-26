@@ -129,16 +129,22 @@ rowSpanTable.render(rowspanBodyArr)
 
 
 
-const gomb = document.createElement("button")
-document.body.appendChild(gomb)
-gomb.innerText = "RowSpan hozzáadás"
+const gombRowSpan = document.createElement("button")
+document.body.appendChild(gombRowSpan)
+gombRowSpan.innerText = "RowSpan hozzáadás"
 
-gomb.addEventListener("click", addWithButton.bind(rowSpanTable))
+const gombColSpan = document.createElement("button")
+document.body.appendChild(gombColSpan)
+gombColSpan.innerText = "ColSpan hozzáadás"
+
+gombRowSpan.addEventListener("click", addRowSpanWithButton.bind(rowSpanTable))
+gombColSpan.addEventListener("click", addColSpanWithButton.bind(colSpanTable))
+
 
 /**
  * @this {RowSpanTable}
  */
-function addWithButton(){
+function addRowSpanWithButton(){
     
     /**
      *@type {RowspanRowType} objektum tipusa
@@ -153,28 +159,82 @@ function addWithButton(){
 
     this.method(function(body){
 
-        const row = document.createElement("tr")
-        body.appendChild(row)
+        const row1 = document.createElement("tr")
+        body.appendChild(row1)
 
         const cell1 = document.createElement("td")
         cell1.innerText = obj.author
-        row.appendChild(cell1)
+        row1.appendChild(cell1)
 
         const cell2 = document.createElement("td")
         cell2.innerText = obj.title1
-        row.appendChild(cell2)
+        row1.appendChild(cell2)
 
         const cell3 = document.createElement("td")
         cell3.innerText = obj.concepts1
-        row.appendChild(cell3)
+        row1.appendChild(cell3)
 
-        const cell4 = document.createElement("td")
-        cell4.innerText = obj.title2
-        row.appendChild(cell4)
+        if(obj.title2 && obj.concepts2){
+            
+            cell1.rowSpan = 2
+            const row2 = document.createElement("tr")
+            body.appendChild(row2)
+            
+            const cell4 = document.createElement("td")
+            cell4.innerText = obj.title2
+            row2.appendChild(cell4)
 
-        const cell5 = document.createElement("td")
-        cell5.innerText = obj.concepts2
-        row.appendChild(cell5)
+            const cell5 = document.createElement("td")
+            cell5.innerText = obj.concepts2
+            row2.appendChild(cell5)
+        }
+        
     })
 }
+
+
+
+/**
+ * @this {ColspanTable}
+ */
+function addColSpanWithButton(){
+    
+    /**
+     * @type {ColspanRowType}
+     */
+    const obj = {
+        author: "Franz Kafka", 
+        title: "Az átváltozás",
+        concepts: "kisregény", 
+        concepts2: "groteszk" 
+    }
+
+    this.method(function(body){
+        const row1 = document.createElement("tr")
+        body.appendChild(row1)
+
+        const cell1 = document.createElement("td")
+        cell1.innerText = obj.author
+        row1.appendChild(cell1)
+
+        const cell2 = document.createElement("td")
+        cell2.innerText = obj.title
+        row1.appendChild(cell2)
+
+        const cell3 = document.createElement("td")
+        cell3.innerText = obj.concepts
+        row1.appendChild(cell3)
+
+        if(obj.concepts2){
+            const cell4 = document.createElement("td")
+            cell4.innerText = obj.concepts2
+            row1.appendChild(cell4)
+        }
+        else{
+            cell3.colSpan = 2
+        }
+    })
+}
+
+
 
