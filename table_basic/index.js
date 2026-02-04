@@ -287,10 +287,12 @@ function SponsoredPost(title, author, content, sponsorName) {
     BlogPost.call(this, title, author, content)
     this.sponsorName = sponsorName
 
-    SponsoredPost.prototype.display = function(){
+   
+}
+
+SponsoredPost.prototype.display = function(){
         console.log(this.title + " " + sponsorName)
     }
-}
 
 Object.setPrototypeOf(SponsoredPost.prototype, BlogPost.prototype)
 

@@ -9,25 +9,26 @@ class Gomb{
         this.muveletString = muveletString
         this.eredmenyDiv = eredmenyDiv
 
+
         const button = document.createElement("button")
-        button.addEventListener("click", function(){
+        document.body.appendChild(button)
+        button.innerText = muveletString
 
-            const input1 = Number(input1.value)
-            const input2 = Number(input2.value)
+        button.addEventListener("click", this.#calculate(this.input1, this.input2, eredmenyDiv))
 
-            if(muveletString == "+"){
-                const {result} = muvelet(input1, input2, muveletLetrehoz("+"))
-                eredmenyDiv.innerText = result
-            }
-            else if(muveletString == "-"){
-                const {result} = muvelet(input1, input2, muveletLetrehoz("-"))
-                eredmenyDiv.innerText = result
-            }
-            else if(muveletString == "*"){
-                const {result} = muvelet(input1, input2, muveletLetrehoz("*"))
-                eredmenyDiv.innerText = result
-            }
+            
 
-        })
+    }
+
+    #calculate(input1, input2, eredmenyDiv){
+        return () =>{
+            const sz1 = Number(input1.value)
+            const sz2 = Number(input2.value)
+
+            const {result} = muvelet(sz1, sz2, muveletLetrehoz(this.muveletString))
+            eredmenyDiv.innerText = result
+        }
     }
 }
+
+export {Gomb}

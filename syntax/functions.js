@@ -11,6 +11,16 @@ const muveletLetrehoz = (jel) =>{
             return a + b
         }
     }
+    else if(jel == "-"){
+        return (a, b) => {
+            return a - b
+        }
+    }
+    else if(jel == "*"){
+        return (a, b) => {
+            return a * b
+        }
+    }
 }
 
 export {muvelet, muveletLetrehoz}
