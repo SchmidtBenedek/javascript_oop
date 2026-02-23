@@ -1,5 +1,6 @@
 /**
- * @import {} from "./functions"
+ * @import {ColspanType, RowspanType, HeaderArrayType} from "./functions.js"
+ * 
  * @callback TableCallback
  * @param {HTMLTableSectionElement} tbody
  * @param {ColspanType | RowspanType} elem
@@ -7,44 +8,36 @@
  */
 
 import { Manager } from "./manager.js"
+import { createTableCell } from "./functions.js"
 
 class Table{
+
     /**
      * @type {HTMLTableSectionElement}
      */
     #tbody
+
     /**
      * @type {Manager}
      */
     #manager
-    /**
-     * 
-     * @param {HeaderType[]} headerArray
-     * @param {Manager} manager 
-     */
+
     constructor(headerArray, manager){
-        /**
-         * @type {Manager}
-         */
         this.#manager = manager
-        
 
         const table = document.createElement("table")
-        const tHead = document.createElement("thead")
-        const tBody = document.createElement("tbody")
-        this.#tbody = tBody
-        const trHead = document.createElement("tr") 
-
-
         document.body.appendChild(table)
-        table.appendChild(tHead)
-        table.appendChild(tBody)
-        tHead.appendChild(trHead)
+        const thead = document.createElement("thead")
+        table.appendChild(thead)
+        const trHead = document.createElement("tr")
+        thead.appendChild(trHead)
+        const tbody = document.createElement("tbody")
+        this.#tbody = tbody
+        table.appendChild(tbody)
+        
 
         for(const x of headerArray){
-            const th = document.createElement("th")
-            trHead.appendChild(th)
-            th.innerText = x.name
+            createTableCell("th", x.name, trHead)
         }
     }
 
@@ -57,6 +50,8 @@ class Table{
             callback(this.#tbody, elem)
         }
     }
+
+
 }
 
- export {Table}
+export {Table}

@@ -1,50 +1,49 @@
 /**
- * @import {} from "./functions"
+ * @import {ColspanType, RowspanType, HeaderArrayType} from "./functions.js"
+ * 
+ * 
  * @callback TableCallback
  * @param {HTMLTableSectionElement} tbody
  * @param {ColspanType | RowspanType} elem
  * @returns {void}
+ * 
  */
-
-import { Manager } from "./manager.js"
+import { createTableCell } from "./functions.js"
 
 class Table{
+
     /**
      * @type {HTMLTableSectionElement}
      */
     #tbody
+
     /**
      * @type {Manager}
      */
     #manager
+
     /**
      * 
-     * @param {HeaderType[]} headerArray
+     * @param {HeaderArrayType} headerArray 
      * @param {Manager} manager 
      */
     constructor(headerArray, manager){
-        /**
-         * @type {Manager}
-         */
+
         this.#manager = manager
-        
 
         const table = document.createElement("table")
-        const tHead = document.createElement("thead")
-        const tBody = document.createElement("tbody")
-        this.#tbody = tBody
-        const trHead = document.createElement("tr") 
-
+        const thead = document.createElement("thead")
+        const tbody = document.createElement("tbody")
+        this.#tbody = tbody
+        const trHead = document.createElement("tr")
 
         document.body.appendChild(table)
-        table.appendChild(tHead)
-        table.appendChild(tBody)
-        tHead.appendChild(trHead)
-
+        table.appendChild(thead)
+        table.appendChild(tbody)
+        thead.appendChild(trHead)
+        
         for(const x of headerArray){
-            const th = document.createElement("th")
-            trHead.appendChild(th)
-            th.innerText = x.name
+            createTableCell("th", x.name, trHead)
         }
     }
 
@@ -55,8 +54,8 @@ class Table{
     setAppendRow(callback){
         this.#manager.addCallback = (elem) =>{
             callback(this.#tbody, elem)
-        }
+        } 
     }
 }
 
- export {Table}
+export {Table}
