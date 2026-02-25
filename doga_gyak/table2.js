@@ -2,7 +2,7 @@
  * @import {ColspanType, RowspanType, HeaderArrayType} from "./functions.js"
  * 
  * @callback TableCallback
- * @param {HTMLTableSectionElement} tbody
+ * @param {HTMLTableCellElement} tbody
  * @param {ColspanType | RowspanType} elem
  * @returns {void}
  */
@@ -13,7 +13,7 @@ import { createTableCell } from "./functions.js"
 class Table{
 
     /**
-     * @type {HTMLTableSectionElement}
+     * @type {HTMLTableCellElement}
      */
     #tbody
 
@@ -22,36 +22,42 @@ class Table{
      */
     #manager
 
-    constructor(headerArray, manager){
+    /**
+     * 
+     * @param {HeaderArrayType} headerArr 
+     * @param {Manager} manager 
+     */
+    constructor(headerArr, manager){
         this.#manager = manager
 
         const table = document.createElement("table")
-        document.body.appendChild(table)
         const thead = document.createElement("thead")
-        table.appendChild(thead)
-        const trHead = document.createElement("tr")
-        thead.appendChild(trHead)
         const tbody = document.createElement("tbody")
         this.#tbody = tbody
-        table.appendChild(tbody)
-        
+        const trHead = document.createElement("tr")
 
-        for(const x of headerArray){
+        document.body.appendChild(table)
+        table.appendChild(thead)
+        table.appendChild(tbody)
+        thead.appendChild(trHead)
+
+        for(const x of headerArr){
             createTableCell("th", x.name, trHead)
         }
+
     }
 
     /**
      * 
      * @param {TableCallback} callback 
+     * @returns {void}
      */
     setAppendRow(callback){
         this.#manager.addCallback = (elem) =>{
             callback(this.#tbody, elem)
         }
     }
-
-
+    
 }
 
 export {Table}

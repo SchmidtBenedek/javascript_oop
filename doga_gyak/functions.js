@@ -91,6 +91,10 @@ const createInputField = ({id, name, labelContent, parent}) =>{
     const label = document.createElement('label');
     label.innerText = labelContent;
     div.appendChild(label);
+
+    const br = document.createElement("br")
+    div.appendChild(br)
+    
     const input = document.createElement('input')
     div.appendChild(input);
     input.type = 'text';

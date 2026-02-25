@@ -2,13 +2,13 @@
  * @import {ColspanType, RowspanType} from "./functions.js"
  * 
  * @callback addCallback
- * @param {ColspanType | RowspanType} element
+ * @param {ColspanType | RowspanType}
  * @returns {void}
  */
 
 class Manager{
     /**
-     * @type {ColspanType[] | RowspanType[]}
+     * @type {ColspanTypeĐ[] | RowspanType[]}
      */
     #dataArr
 
@@ -23,18 +23,19 @@ class Manager{
 
     /**
      * 
-     * @param {ColspanType | RowspanType} element
+     * @param {ColspanType | RowspanType} elem 
      * @returns {void}
      */
-    addElement(element){
-        this.#dataArr.push(element)
+    addElement(elem){
+        this.#dataArr.push(elem)
 
         if(this.#addCallback){
-            this.#addCallback(element)
+            this.#addCallback(elem)
         }
     }
+
     /**
-     * @param {addCallback} value
+     * @param {addCallback} value 
      */
     set addCallback(value){
         this.#addCallback = value
