@@ -7,6 +7,10 @@
  * @param {string} message
  * @returns {void}
  * 
+ * @callback ImportResultCallback
+ * @param {string} message
+ * @returns {void}
+ * 
  */
 
 class AuthorManager{
@@ -25,6 +29,8 @@ class AuthorManager{
      */
     #addElementResultCallback
 
+    #importResultCallback
+
     /**
      * @param {TableCallback} value 
      */
@@ -37,6 +43,13 @@ class AuthorManager{
      */
     set addElementResultCallback(value){
         this.#addElementResultCallback = value
+    }
+
+    /**
+     * @param {ImportResultCallback} value 
+     */
+    set importResultCallback(value){
+        this.#importResultCallback = value
     }
 
     constructor(){
@@ -65,10 +78,44 @@ class AuthorManager{
     }
 
     /**
+     * 
+     * @param {import(".").AuthorType[]} elementList 
+     */
+    addElementList(elementList){
+        for(const elem of elementList){
+            const author = new Author()
+            author.id = this.#authorList.length
+            author.name = elem.author
+            author.work = elem.work
+            author.concept = elem.concept
+
+            if(author.validate()){
+                this.#authorList.push(author)
+                this.#importResultCallback("Sikeres volt.")
+            }
+            else{
+                this.#importResultCallback("Sikertelen muvelet.")
+                break
+            }
+        }
+    }
+
+    /**
      * @returns {void}
      */
     getAllElement(){
         this.#tableCallback(this.#authorList)
+    }
+
+    /**
+     * @returns {string}
+     */
+    getExportString(){
+        const result = []
+        for(const author of this.#authorList){
+            result.push(`${author.name};${author.work};${author.concept}`)
+        }
+        return result.join("\n")
     }
 
 }
