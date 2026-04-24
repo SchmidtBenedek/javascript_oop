@@ -39,4 +39,4 @@ class NavigationBar extends ViewElement{ //navigationBar osztály definíciója
     }
 }
 
-export {NavigationBar} //exportáljuk
+export {NavigationBar} //exportáljuk a navigacios bart

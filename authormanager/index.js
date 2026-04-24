@@ -9,7 +9,7 @@ import { AuthorManager } from "./manager.js"
 import { NavigationBar } from "./navigationBar.js"
 import { TableView } from "./table.js"
 
-const formFields = [{
+const formFields = [{ //létrehozunk 1 formField listát ami alapján példányosít a FormController
     id: 'author',
     label: 'Név',
     name: 'author'
@@ -25,26 +25,26 @@ const formFields = [{
     name: 'concept'
 }]
 
-const headerArray = ['Szerző', 'Mű', 'Fogalom']
+const headerArray = ['Szerző', 'Mű', 'Fogalom'] //header lista
 
-const manager = new AuthorManager()
-
-
-const navbar = new NavigationBar()
-navbar.appendTo(document.body)
-
-const tableView = new TableView('table', headerArray, manager)
-tableView.appendTo(document.body)
-navbar.addViewElement('Táblázat', tableView)
-
-const formView = new FormView('tableForm', formFields, manager)
-formView.appendTo(document.body)
-navbar.addViewElement('Form', formView)
+const manager = new AuthorManager() //példányosítjuk a managert
 
 
+const navbar = new NavigationBar() //példányosítjuk a navbart
+navbar.appendTo(document.body) //hozzáadjuk a navbart a bodyhoz
 
-const importExport = new ImportView("importexport", manager)
-importExport.appendTo(document.body)
-navbar.addViewElement("Import/Export", importExport)
+const tableView = new TableView('table', headerArray, manager) //példányosítás
+tableView.appendTo(document.body) //hozzáadjuk a bodyhoz
+navbar.addViewElement('Táblázat', tableView) //hozzáadjuk a navbarhoz
 
-navbar.activate('table')
+const formView = new FormView('tableForm', formFields, manager)//példányosítás
+formView.appendTo(document.body) //hozzáadjuk a bodyhoz
+navbar.addViewElement('Form', formView) //hozzáadjuk a navbarhoz
+
+
+
+const importExport = new ImportView("importexport", manager)//példányosítás
+importExport.appendTo(document.body) //hozzáadjuk a bodyhoz
+navbar.addViewElement("Import/Export", importExport) //hozzáadjuk a navbarhoz
+
+navbar.activate('table') //meghívjuk a navbar activate metódusét a table azonosítójával
